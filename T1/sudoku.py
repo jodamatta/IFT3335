@@ -43,8 +43,7 @@ def test():
     assert peers['C2'] == set(['A2', 'B2', 'D2', 'E2', 'F2', 'G2', 'H2', 'I2',
                                'C1', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8', 'C9',
                                'A1', 'A3', 'B1', 'B3'])
-    print
-    'All tests pass.'
+    print('All tests pass.')
 
 
 ################ Parse a Grid ################
@@ -111,12 +110,9 @@ def display(values):
     width = 1 + max(len(values[s]) for s in squares)
     line = '+'.join(['-' * (width * 3)] * 3)
     for r in rows:
-        print
-        ''.join(values[r + c].center(width) + ('|' if c in '36' else '')
-                for c in cols)
-        if r in 'CF': print
-        line
-    print
+        print(''.join(values[r + c].center(width) + ('|' if c in '36' else ''))
+              for c in cols)
+        if r in 'CF': print(line)
 
 
 ################ Search ################
@@ -175,7 +171,7 @@ def solve_all(grids, name='', showif=0.0):
         if showif is not None and t > showif:
             display(grid_values(grid))
             if values: display(values)
-            print('speed: (%.2f seconds)\n' % t)
+            print('(%.2f seconds)\n' % t)
         return (t, solved(values))
 
     times, results = zip(*[time_solve(grid) for grid in grids])
@@ -183,6 +179,7 @@ def solve_all(grids, name='', showif=0.0):
     if N > 1:
         print("Solved %d of %d %s puzzles (avg %.2f secs (%d Hz), max %.2f secs)." % (
             sum(results), N, name, sum(times) / N, N / sum(times), max(times)))
+
 
 def solved(values):
     "A puzzle is solved if each unit is a permutation of the digits 1 to 9."
@@ -212,7 +209,11 @@ hard1 = '.....6....59.....82....8....45........3........6..3.54...325..6........
 
 if __name__ == '__main__':
     test()
-    solve_all(from_file("top95.txt"), "hard", None)
+    solve_all(from_file("100sudoku.txt"), "Studium", None)
+    # solve_all(from_file("easy50.txt", '========'), "easy", None)
+    # solve_all(from_file("easy50.txt", '========'), "easy", None)
+    # solve_all(from_file("top95.txt"), "hard", None)
+    # solve_all(from_file("hardest.txt"), "hardest", None)
     solve_all([random_puzzle() for _ in range(99)], "random", 100.0)
 
 ## References used:
